@@ -1,5 +1,5 @@
-//UC 3
-//Refactoring code of UC2 to write function for daily worrking hourss
+//UC4
+// Calculating Wages for a Month assuming 20 Working Days in a Month
 
 const IS_PART_TIME = 1;
 const IS_FULL_TIME = 2;
@@ -18,8 +18,12 @@ function getWorkingHours(empCheck) {
   }
 }
 
+const NUM_OF_WORKING_DAYS = 2;
 let empHrs = 0;
-let empCheck = Math.floor(Math.random() * 10) % 3;
-empHrs = getWorkingHours(empCheck);
+for (let day = 0; day < NUM_OF_WORKING_DAYS; day++) {
+  let empCheck = Math.floor(Math.random() * 10) % 3;
+  empHrs += getWorkingHours(empCheck);
+}
+
 let empWage = empHrs * WAGE_PER_HOUR;
-console.log("Emp Wage: " + empWage);
+console.log("Total Hrs: " + empHrs + " Emp Wage: " + empWage);
