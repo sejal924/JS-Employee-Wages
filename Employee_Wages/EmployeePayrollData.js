@@ -1,5 +1,7 @@
-//UC12
-// Ability to create Employee Payroll Data with id, name and salary
+//UC 14
+// Ability to check the name starts with capital and has at least 3 characters
+// - Use Regex Pattern
+// - Use Try Catch in case of Error
 
 class EmployeePayrollData {
   //propertiy
@@ -10,12 +12,12 @@ class EmployeePayrollData {
   startDate;
 
   //constructor
-  constructor(id, name, salary, gender, startDate) {
-    this.id = id;
-    this.salary = salary;
-    this.name = name;
-    this.gender = gender;
-    this.startDate = startDate;
+  constructor(...params) {
+    this.id = params[0];
+    this.name = params[1];
+    this.salary = params[2];
+    this.gender = params[3];
+    this.startDate = params[4];
   }
 
   //getter and setter method
@@ -24,11 +26,22 @@ class EmployeePayrollData {
   }
 
   set name(name) {
-    this.name = name;
+    let nameRegx = RegExp("^[A-Z]{1}[a-z]{3,}$");
+    if (nameRegx.test(name)) {
+      this.name = name;
+    } else {
+      throw "Name is Incorrect";
+    }
   }
 
   //method
   toString() {
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    const empDate =
+      this.startDate === undefined
+        ? "undefined"
+        : this.startDate.toLocaleDateString("en-US", options);
+
     return (
       "id = " +
       this.id +
@@ -39,20 +52,25 @@ class EmployeePayrollData {
       ", gender = " +
       this.gender +
       ", startDate = " +
-      this.startDate
+      empDate
     );
   }
 }
 
-let employeePayrollData = new EmployeePayrollData(1, "Aryan", 50000);
-console.log(employeePayrollData.toString());
-employeePayrollData.name = "Arjun";
-console.log(employeePayrollData.toString());
-let newEmployeePayrollData = new EmployeePayrollData(
-  1,
-  "Arshi",
-  30000,
-  "F",
+let employeePayrollData1 = new EmployeePayrollData(1, "Aditi", 50000);
+console.log(employeePayrollData1.toString());
+try {
+  employeePayrollData1.name = "Anubhav";
+  console.log(employeePayrollData1.toString());
+} catch (e) {
+  console.error(e);
+}
+
+let employeePayrollData2 = new EmployeePayrollData(
+  2,
+  "Ayan",
+  50000,
+  "M",
   new Date()
 );
-console.log(newEmployeePayrollData.toString());
+console.log(employeePayrollData2.toString());
